@@ -21,7 +21,7 @@ spec:
             - host: headlamp.example
               paths:
                 - path: /
-                  pathType: Prefix
+                  type: Prefix
   syncPolicy:
     automated:
       prune: true

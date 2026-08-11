@@ -10,8 +10,12 @@ One-time only, since ArgoCD has no way to discover a new repo except being
 told about it directly:
 
 ```
-kubectl apply -f apps/main.yaml
+kubectl apply -f main.yaml
 ```
+
+`main.yaml` lives at the repo root, deliberately outside `apps/` — the root
+Application it defines watches `apps/`, so if its own manifest lived inside
+that folder it would try to manage (and endlessly re-sync) itself.
 
 After that, never `kubectl apply` anything else in `apps/` by hand — push to
 this repo and the root Application (automated sync, prune, selfHeal) picks up
