@@ -19,3 +19,12 @@ spec:
     initdb:
       database: backstage
       owner: backstage
+  managed:
+    roles:
+      # Backstage provisions one database per plugin on first connect
+      # (backstage_plugin_scaffolder, backstage_plugin_techdocs, ...), which
+      # needs CREATEDB — owning the single bootstrap database isn't enough.
+      - name: backstage
+        ensure: present
+        login: true
+        createdb: true
