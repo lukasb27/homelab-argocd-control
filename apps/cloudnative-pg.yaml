@@ -3,6 +3,11 @@ kind: Application
 metadata:
   name: cloudnative-pg
   namespace: argocd
+  annotations:
+    # Must sync (and reach Healthy, installing its CRDs) before the
+    # backstage-db Cluster CR, which is a flat sibling in this same apps/
+    # directory and otherwise has no ordering guarantee against it.
+    argocd.argoproj.io/sync-wave: "-1"
 spec:
   project: default
   destination:
