@@ -3,6 +3,13 @@ kind: Cluster
 metadata:
   name: backstage-db
   namespace: backstage
+  annotations:
+    # Its CRD doesn't exist until the CNPG operator (sync-wave -1) finishes
+    # syncing. Without this, Argo CD's upfront kind-resolution for this
+    # resource fails and blocks the *entire* root sync, not just this one
+    # resource — sync-wave ordering alone doesn't help, since it only
+    # controls apply order, not validation order.
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   instances: 1
   storage:
