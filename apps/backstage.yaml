@@ -11,7 +11,7 @@ spec:
   sources:
     - repoURL: https://backstage.github.io/charts
       chart: backstage
-      targetRevision: 2.8.2
+      targetRevision: 2.10.0
       helm:
         valueFiles:
           - $values/backstage-values.yaml
