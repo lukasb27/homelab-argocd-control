@@ -1,8 +1,13 @@
 # homelab-argocd-control
 
-App-of-apps root for general homelab infra (not fermentation-station — see
-[fermentation-station-argocd-control](https://github.com/lukasb27/fermentation-station-argocd-control)
-for that).
+App-of-apps root for **core platform** infra — long-lived, human-reviewed
+infrastructure like the CNPG operator, the Postgres cluster backing
+Backstage's own database, and Backstage itself. Not application/service
+environments — see
+[application-argocd-control](https://github.com/lukasb27/application-argocd-control)
+for the high-churn, machine-driven, per-service Applications instead. See
+[the ADR](docs/two-argocd-repos-adr.md) for why these are two separate repos,
+not one.
 
 ## Bootstrap
 
