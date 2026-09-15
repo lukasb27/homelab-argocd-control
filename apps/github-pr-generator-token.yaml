@@ -4,7 +4,15 @@ metadata:
   name: github-pr-generator-token
   namespace: argocd
 spec:
-  refreshInterval: 1h
+  # Must not exceed central-github-token's own 15m refreshInterval (external-secrets
+  # namespace) — this mirrors that secret's value, so a slower interval here means
+  # serving a stale/expired copy for however long it lags behind the source between
+  # its own refreshes. Confirmed live: with this at 1h, the ApplicationSet's
+  # pullRequest generator hit both a 404 (listing PRs) and, on manual retest, a 401
+  # Bad credentials — both symptoms of the same staleness gap, not an installation
+  # access problem (confirmed separately: the token is valid and has repo access
+  # once actually in sync with the source).
+  refreshInterval: 15m
   secretStoreRef:
     kind: ClusterSecretStore
     name: kubernetes-mirror
