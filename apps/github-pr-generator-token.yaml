@@ -1,0 +1,17 @@
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: github-pr-generator-token
+  namespace: argocd
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    kind: ClusterSecretStore
+    name: kubernetes-mirror
+  target:
+    name: github-pr-generator-token
+  data:
+    - secretKey: token
+      remoteRef:
+        key: central-github-token-secret
+        property: token
